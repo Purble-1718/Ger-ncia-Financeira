@@ -8,7 +8,7 @@ $categoria = $_GET["categoria"];
 
 
 $sql = "INSERT INTO receitas (descricao, valor, data_mvto, categoria_id) VALUES
-        (:descricao, :valor, :data_mvto, :categoria_id)";
+        (:descricao, :valor, :data_mvto, :categoria_id)"; #variável com código de MySQL
 
 $sql = $pdo->prepare($sql);
 $sql->bindValue(":descricao", $descricao);
@@ -18,5 +18,5 @@ $sql->bindValue(":categoria_id", 1);
 
 $sql->execute();
 
-header("Location: receitas.php");
-exit;
+header("Location: receitas.php"); #acessar este arquivo "receitas.php"
+exit; #sair deste arquivo
