@@ -24,7 +24,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
   <header>
     <nav>
       <ul class="rem">
-        <li><a href="#">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
+        <li><a href="./receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
         <li><a href="#">Despesas</a></li>
         <li><a href="#">Categorias</a></li>
       </ul>
@@ -47,7 +47,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
 
         <label>
           Categoria
-          <select name="categoria">
+          <select name="categoria"> 
             <option value=""></option> <!--Para o select começar "vazio"-->
             <option value="1">Salário</option>
             <option value="2">Bônus</option>

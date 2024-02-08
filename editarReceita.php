@@ -13,6 +13,18 @@ $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+$sql = "SELECT * FROM receitas WHERE id = :id";
+$sql = $pdo->prepare($sql);
+$sql->bindValue(":id", $id);
+$sql->execute();
+$id_categoria = $sql->fetch(PDO::FETCH_ASSOC);
+$categorias = $id_categoria['categorias_id'];
+
+$sql = "SELECT * FROM categorias WHERE id = :categorias";
+$sql = $pdo->prepare($sql);
+$sql->bindValue(":categorias", $categorias);
+$sql->execute();
+$categoria = $sql->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -43,6 +55,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
     <section class="formulario">
       <form action="./confirmarEditarReceita.php" method="get"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
 
+        <input type="hidden" name="id" value="<?= $id?>"> <!--Hidden para não aparecer para o usuário; enviando id pela url de forma escondida -->
         <label>
           Descrição
           <input type="text" name="descricao" value="<?= $item['descricao']?>"> <!--Label conecta tudo que está dentro-->
@@ -56,7 +69,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
         <label>
           Categoria
           <select name="categoria" >
-            <option value="<?= $item['categorias_id']?>"><?= $item['categorias_id']?></option> <!--Para o select começar "vazio"-->
+            <option value="<?= $item['categorias_id']?>"><?= $categoria['descricao']?></option> <!--Para o select começar "vazio"-->
             <option value="1">Salário</option>
             <option value="2">Bônus</option>
             <option value="3">Investimento</option>

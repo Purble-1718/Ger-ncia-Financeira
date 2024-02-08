@@ -7,11 +7,11 @@ $data_mvto = $_GET['data_mvto'];
 $categorias_id = $_GET['categoria'];
 $descricao = $_GET['descricao'];
 
-$sql = "UPDATE receitas
+$sql = "UPDATE receitas #Atualizando/Editando linha do banco de dados pelo id
 SET descricao = :descricao,
 valor = :valor,
 data_mvto = :data_mvto,
-categorias_id = :categorias_id,
+categorias_id = :categorias_id 
 WHERE id = :id";
 
 $sql = $pdo->prepare($sql);
