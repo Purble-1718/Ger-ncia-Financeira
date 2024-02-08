@@ -1,11 +1,19 @@
 <?php
 require "./config.php";
 
-$sql = "SELECT * FROM receitas";
-$sql = $pdo->prepare($sql); #pdo->Classe de conexão com banco de dados; preparando uma consulta usando o pdo. O objeto pdo está preparando uma consulta no banco de dados, consulta dentro do $sql. sql vai receber um PDOStatement que tem todas as informações que foram passadas para o banco de dados, agora é só executar.
-$sql->execute(); #executa a consulta de antes. A "->" acessa métodos de um objeto.
+$id = $_GET['id'];
+$sql = "SELECT * FROM receitas WHERE id = :id";
+$sql = $pdo->prepare($sql);
+$sql->bindValue(":id", $id);
+$sql->execute(); 
+$item = $sql->fetch(PDO::FETCH_ASSOC); #$item recebe os valores da item que o sql pegar do banco de dados.
 
-$dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da execução da consulta; Argumento PDO::FETCH_ASSOC: Organiza o resultado em formato de array associativo, chaves==nome colunas banco de dados.
+$sql = "SELECT * FROM receitas";
+$sql = $pdo->prepare($sql);
+$sql->execute();
+$dados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 
@@ -24,7 +32,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
   <header>
     <nav>
       <ul class="rem">
-        <li><a href="#">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
+        <li><a href="./receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
         <li><a href="#">Despesas</a></li>
         <li><a href="#">Categorias</a></li>
       </ul>
@@ -33,22 +41,22 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
 
   <main>
     <section class="formulario">
-      <form action="./cadastrarReceita.php" method="get"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
+      <form action="./confirmarEditarReceita.php" method="get"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
 
         <label>
           Descrição
-          <input type="text" name="descricao"> <!--Label conecta tudo que está dentro-->
+          <input type="text" name="descricao" value="<?= $item['descricao']?>"> <!--Label conecta tudo que está dentro-->
         </label>
 
         <label>
           Valor
-          <input type="number" name="valor"> <!--Input para receber dados que o usuário inserir-->
+          <input type="number" name="valor" value="<?= $item['valor']?>"> <!--Input para receber dados que o usuário inserir-->
         </label>
 
         <label>
           Categoria
-          <select name="categoria">
-            <option value=""></option> <!--Para o select começar "vazio"-->
+          <select name="categoria" >
+            <option value="<?= $item['categorias_id']?>"><?= $item['categorias_id']?></option> <!--Para o select começar "vazio"-->
             <option value="1">Salário</option>
             <option value="2">Bônus</option>
             <option value="3">Investimento</option>
@@ -58,10 +66,10 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
 
         <label>
           Data
-          <input type="date" name="data_mvto">
+          <input type="date" name="data_mvto" value="<?= $item['data_mvto']?>">
         </label>
 
-        <button type="submit">Adicionar</button> <!--Envia o formulário-->
+        <button type="submit">Editar</button> <!--Envia o formulário-->
 
 
       </form>

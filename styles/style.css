@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"); /*importa uma biblioteca de fontes*/
 
-* {
+* { /*Reduz todos*/
   margin: 0;
   padding: 0;
 }
@@ -11,9 +11,9 @@ body {
 }
 
 ul {
-  display: flex;
+  display: flex; /*Alinha*/
   list-style: none;
-  gap: 1rem;
+  gap: 1rem; /*1rem == 16px*/
   font-size: 1.25rem;
   justify-content: center;
   padding: 1.25rem 0;
@@ -26,17 +26,17 @@ li {
   border-radius: 8px;
 }
 
-li:hover {
+li:hover { /*Hover -> Animação ao passar o mouse em cima*/
   background-color: #8c6aff;
   font-weight: bold;
 }
 
-header a {
+header a { /*a dentro da tag header*/
   text-decoration: none;
   color: #fff;
 }
 
-main {
+main { /*header, main, footer*/
   width: 1000px;
   margin-left: auto;
   margin-right: auto;
