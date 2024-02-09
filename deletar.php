@@ -1,9 +1,9 @@
 <?php
 require "./config.php";
-
+#hidden com o nome do banco de dados
 $id = $_GET["id"];
 
-$sql = "DELETE FROM receitas WHERE id = :id";
+$sql = "DELETE FROM Receita WHERE id = :id";
 $sql = $pdo->prepare($sql);
 
 $sql->bindValue(":id", $id);

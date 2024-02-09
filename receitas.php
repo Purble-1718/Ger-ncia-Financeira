@@ -1,7 +1,7 @@
 <?php
 require "./config.php";
 
-$sql = "SELECT * FROM receitas";
+$sql = "SELECT * FROM Receita";
 $sql = $pdo->prepare($sql); #pdo->Classe de conexão com banco de dados; preparando uma consulta usando o pdo. O objeto pdo está preparando uma consulta no banco de dados, consulta dentro do $sql. sql vai receber um PDOStatement que tem todas as informações que foram passadas para o banco de dados, agora é só executar.
 $sql->execute(); #executa a consulta de antes. A "->" acessa métodos de um objeto.
 
@@ -46,6 +46,11 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
         </label>
 
         <label>
+          Data
+          <input type="date" name="data_mvto"> <!--name associa o nome ao valor de entrada inserido pelo usuário, enviado pelo método do form -->
+        </label>
+        
+        <label>
           Categoria
           <select name="categoria"> 
             <option value=""></option> <!--Para o select começar "vazio"-->
@@ -57,12 +62,14 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
         </label>
 
         <label>
-          Data
-          <input type="date" name="data_mvto">
+          Status
+          <select name="status">
+            <option value="Pendente">Pendente</option>
+            <option value="Recebida">Recebida</option>
+          </select>
         </label>
 
         <button type="submit">Adicionar</button> <!--Envia o formulário-->
-
 
       </form>
     </section>
@@ -70,8 +77,8 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
 
       <table>
         <thead> <!--Define o cabeçalho da tabela-->
-          <tr>
-            <th>ID</th>
+          <tr> <!--linha-->
+            <th>ID</th> <!--cabeçalho da coluna: formatação -->
             <th>Descrição</th>
             <th>Valor</th>
             <th>Data</th>
@@ -80,14 +87,14 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
         </thead>
         <tbody>
 
-          <?php foreach ($dados as $dado) : ?> <!--Dado é uma variável criada que percorre o array associativo dados-->
+          <?php foreach ($dados as $dado) : ?> <!--dado é uma variável criada que percorre o array associativo dados-->
             <tr> <!--Dados é array multidimensional-->
               <td><?= $dado['id'] ?></td> <!--Acessa chave id da variável dado-->
-              <td><?= $dado['descricao'] ?></td>
+              <td><?= $dado['descricao'] ?></td> <!--td célula normal -->
               <td><?= $dado['valor'] ?></td>
               <td><?= $dado['data_mvto'] ?></td>
               <td>
-                <a href="./deletar.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> <!--Vai para o ./deletar.php passando o id -->
+                <a href="./deletar.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> <!--Vai para o ./deletar.php passando o id de uma entrada GET-->
                 <a href="./editarReceita.php?id=<?= $dado['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></a>
               </td>
             </tr>
@@ -97,7 +104,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da 
 
     </section>
   </main>
-  <script src="https://kit.fontawesome.com/561265e797.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/561265e797.js" crossorigin="anonymous"></script> <!--Importa biblioteca de fontes. link do script que contém os ícones. crossorigin é para pegar recursos sem verificação -->
 </body>
 
 

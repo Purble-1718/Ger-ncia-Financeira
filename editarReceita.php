@@ -2,25 +2,25 @@
 require "./config.php";
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM receitas WHERE id = :id";
+$sql = "SELECT * FROM Receita WHERE id = :id";
 $sql = $pdo->prepare($sql);
 $sql->bindValue(":id", $id);
 $sql->execute(); 
 $item = $sql->fetch(PDO::FETCH_ASSOC); #$item recebe os valores da item que o sql pegar do banco de dados.
 
-$sql = "SELECT * FROM receitas";
+$sql = "SELECT * FROM Receita";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = "SELECT * FROM receitas WHERE id = :id";
+$sql = "SELECT * FROM Receita WHERE id = :id";
 $sql = $pdo->prepare($sql);
 $sql->bindValue(":id", $id);
 $sql->execute();
 $id_categoria = $sql->fetch(PDO::FETCH_ASSOC);
-$categorias = $id_categoria['categorias_id'];
+$categorias = $id_categoria['categoria_id'];
 
-$sql = "SELECT * FROM categorias WHERE id = :categorias";
+$sql = "SELECT * FROM Categoria WHERE id = :categorias";
 $sql = $pdo->prepare($sql);
 $sql->bindValue(":categorias", $categorias);
 $sql->execute();
@@ -37,8 +37,7 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>GestãoFinanceira</title>
-  <link rel="stylesheet" href="./styles/style.css">  <!--Linka com css-->
-</head>
+  <link rel="stylesheet" href="./styles/style.css">  
 
 <body>
   <header>
@@ -53,23 +52,28 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
 
   <main>
     <section class="formulario">
-      <form action="./confirmarEditarReceita.php" method="get"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
+      <form action="./confirmarEditarReceita.php" method="get"> 
 
         <input type="hidden" name="id" value="<?= $id?>"> <!--Hidden para não aparecer para o usuário; enviando id pela url de forma escondida -->
         <label>
           Descrição
-          <input type="text" name="descricao" value="<?= $item['descricao']?>"> <!--Label conecta tudo que está dentro-->
+          <input type="text" name="descricao" value="<?= $item['descricao']?>"> 
         </label>
 
         <label>
           Valor
-          <input type="number" name="valor" value="<?= $item['valor']?>"> <!--Input para receber dados que o usuário inserir-->
+          <input type="number" name="valor" value="<?= $item['valor']?>"> 
         </label>
 
         <label>
+          Data
+          <input type="date" name="data_mvto" value="<?= $item['data_mvto']?>">
+        </label>
+        
+        <label>
           Categoria
           <select name="categoria" >
-            <option value="<?= $item['categorias_id']?>"><?= $categoria['descricao']?></option> <!--Para o select começar "vazio"-->
+            <option value="<?= $item['categoria_id']?>"><?= $categoria['descricao']?></option> <!--Mostra valor do item que está sendo editado"-->
             <option value="1">Salário</option>
             <option value="2">Bônus</option>
             <option value="3">Investimento</option>
@@ -77,13 +81,25 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
           </select>
         </label>
 
-        <label>
-          Data
-          <input type="date" name="data_mvto" value="<?= $item['data_mvto']?>">
-        </label>
+        <?php if($item['status_pago'] == "Pendente"):  ?>
+          <label>
+            Status
+            <select name="status">
+              <option value="Pendente">Pendente</option>
+              <option value="Recebida">Recebida</option>
+            </select>
+          </label>
+        <?php else: ?> <!--if else de php para adequar à opção de status -->
+          <label>
+            Status
+            <select name="status">
+              <option value="Recebida">Recebida</option>
+              <option value="Pendente">Pendente</option>
+            </select>
+          </label>
+        <?php endif; ?>
 
         <button type="submit">Editar</button> <!--Envia o formulário-->
-
 
       </form>
     </section>
@@ -101,14 +117,14 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
         </thead>
         <tbody>
 
-          <?php foreach ($dados as $dado) : ?> <!--Dado é uma variável criada que percorre o array associativo dados-->
-            <tr> <!--Dados é array multidimensional-->
-              <td><?= $dado['id'] ?></td> <!--Acessa chave id da variável dado-->
+          <?php foreach ($dados as $dado) : ?> 
+            <tr> 
+              <td><?= $dado['id'] ?></td> 
               <td><?= $dado['descricao'] ?></td>
               <td><?= $dado['valor'] ?></td>
               <td><?= $dado['data_mvto'] ?></td>
               <td>
-                <a href="./deletar.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> <!--Vai para o ./deletar.php passando o id -->
+                <a href="./deletar.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> 
                 <a href="./editarReceita.php?id=<?= $dado['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></a>
               </td>
             </tr>
