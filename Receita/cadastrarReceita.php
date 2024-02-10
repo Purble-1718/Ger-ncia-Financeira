@@ -1,5 +1,5 @@
 <?php
-require "./config.php"; #importar arquivo com outros códigos de php
+require "./../config.php"; #importar arquivo com outros códigos de php
 
 $descricao = $_GET["descricao"]; #dentro do get tem o nome dos campos de select e input do arquivo receitas.php
 $valor = $_GET["valor"]; #Pega info dentro dos campos pela url->GET e atribui a uma variável
@@ -19,5 +19,5 @@ $sql->bindValue(":categoria_id", $categoria_id);
 
 $sql->execute();
 
-header("Location: receitas.php"); #acessar este arquivo "receitas.php"
+header("Location: ./../receitas.php"); #acessar este arquivo "receitas.php"
 exit; #sair deste arquivo

@@ -1,5 +1,5 @@
 <?php
-require "./config.php";
+require "./../config.php";
 #hidden com o nome do banco de dados
 $id = $_GET["id"];
 
@@ -10,5 +10,5 @@ $sql->bindValue(":id", $id);
 $sql->execute();
 
 
-header("Location: receitas.php");
+header("Location: ./../receitas.php");
 exit;

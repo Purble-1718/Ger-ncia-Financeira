@@ -1,5 +1,5 @@
 <?php
-require "./config.php";
+require "./../config.php";
 
 $id = $_GET['id'];
 $valor = $_GET['valor'];
@@ -26,6 +26,6 @@ $sql->bindValue(":categorias_id", $categoria);
 
 $sql->execute();
 
-header("Location: receitas.php");
+header("Location: ./../receitas.php");
 exit;
 ?>

@@ -1,5 +1,5 @@
 <?php
-require "./config.php";
+require "./../config.php";
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM Receita WHERE id = :id";
@@ -37,15 +37,15 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>GestãoFinanceira</title>
-  <link rel="stylesheet" href="./styles/style.css">  
+  <link rel="stylesheet" href="./../styles/styleReceita.css">  
 
 <body>
   <header>
     <nav>
       <ul class="rem">
-        <li><a href="./receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
+        <li><a href="./../receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
         <li><a href="#">Despesas</a></li>
-        <li><a href="#">Categorias</a></li>
+        <li><a href="./../Categoria/categorias.php">Categorias</a></li>
       </ul>
     </nav>
   </header>
@@ -54,7 +54,7 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
     <section class="formulario">
       <form action="./confirmarEditarReceita.php" method="get"> 
 
-        <input type="hidden" name="id" value="<?= $id?>"> <!--Hidden para não aparecer para o usuário; enviando id pela url de forma escondida -->
+        <input type="hidden" name="id" value="<?= $item['id'] ?>"> <!--Hidden para não aparecer para o usuário; enviando id pela url de forma escondida -->
         <label>
           Descrição
           <input type="text" name="descricao" value="<?= $item['descricao']?>"> 
@@ -105,13 +105,15 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
     </section>
     <section class="tabela">
 
-      <table>
+      <table border="1">
         <thead> <!--Define o cabeçalho da tabela-->
           <tr>
             <th>ID</th>
             <th>Descrição</th>
             <th>Valor</th>
             <th>Data</th>
+            <th>Categoria</th>
+            <th>Status</th>
             <th>Opções</th>
           </tr>
         </thead>
@@ -124,7 +126,19 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
               <td><?= $dado['valor'] ?></td>
               <td><?= $dado['data_mvto'] ?></td>
               <td>
-                <a href="./deletar.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> 
+                <?php if($dado['categoria_id'] == 1):?>
+                  Salário
+                <?php elseif($dado['categoria_id'] == 2):?>
+                  Bônus
+                <?php elseif($dado['categoria_id'] == 3):?>
+                  Investimento
+                <?php elseif($dado['categoria_id'] == 4):?>
+                  Prêmio
+                <?php endif;?>
+              </td>
+              <td><?= $dado['status_pago']?></td>
+              <td>
+                <a href="./deletarReceita.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> 
                 <a href="./editarReceita.php?id=<?= $dado['id'] ?>"><i class="fa-regular fa-pen-to-square"></i></a>
               </td>
             </tr>
