@@ -16,7 +16,6 @@ $sql->bindValue(":valor", $valor);
 $sql->bindValue(":data_mvto", $data_mvto);
 $sql->bindValue(":status_pago", $status);
 $sql->bindValue(":categoria_id", $categoria_id);
-
 $sql->execute();
 
 header("Location: ./../receitas.php"); #acessar este arquivo "receitas.php"

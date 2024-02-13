@@ -6,7 +6,7 @@ $sql = $pdo->prepare($sql); #pdo->Classe de conexão com banco de dados; prepara
 $sql->execute(); #executa a consulta de antes. A "->" acessa métodos de um objeto.
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC); #fecthAll: Recupera os resultados da execução da consulta; Argumento PDO::FETCH_ASSOC: Organiza o resultado em formato de array associativo, chaves==nome colunas banco de dados.
 
-$sql = "SELECT * FROM Categoria";
+$sql = "SELECT * FROM CategoriaReceita";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -29,8 +29,8 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
     <nav> <!--Semântica de navegação -->
       <ul class="rem">
         <li><a href="./receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
-        <li><a href="#">Despesas</a></li>
-        <li><a href="./Categoria/categorias.php">Categorias</a></li>
+        <li><a href="./Despesa/despesas.php">Despesas</a></li>
+        <li><a href="./Categorias/categorias.php">Categorias</a></li>
       </ul>
     </nav>
   </header>
@@ -59,7 +59,7 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
           <select name="categoria"> 
             <option value=""></option> <!--Para o select começar "vazio"-->
             <?php foreach($infos as $info): ?>
-              <option value="<?= $infs['id'] ?>"><?= $info['descricao'] ?></option>
+              <option value="<?= $info['id'] ?>"><?= $info['descricao'] ?></option>
             <?php endforeach; ?>
           </select>
         </label>
@@ -91,24 +91,19 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
           </tr>
         </thead>
         <tbody>
-
-          <?php foreach ($dados as $dado): ?> <!--dado é uma variável criada que percorre o array associativo dados-->
+          <?php foreach ($dados as $contador => $dado): ?> <!--dado é uma variável criada que percorre o array associativo dados-->
             <tr> <!--Dados é array multidimensional-->
-              <td><?= $dado['id'] ?></td> <!--Acessa chave id da variável dado-->
+              <td><?= ++$contador?></td> <!--Acessa chave id da variável dado-->
               <td><?= $dado['descricao'] ?></td> <!--td célula normal -->
               <td><?= $dado['valor'] ?></td>
               <td><?= $dado['data_mvto'] ?></td>
               <td>
-                <?php if($dado['categoria_id'] == 1):?>
-                  Salário
-                <?php elseif($dado['categoria_id'] == 2):?>
-                  Bônus
-                <?php elseif($dado['categoria_id'] == 3):?>
-                  Investimento
-                <?php elseif($dado['categoria_id'] == 4):?>
-                  Prêmio
-                <?php endif;?>
-              </td>
+                <?php foreach($infos as $info): ?>
+                  <?php if($dado['categoria_id'] == $info['id']): ?>
+                    <?= $info['descricao'] ?>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+              </td>    
               <td><?= $dado['status_pago']?></td>
               <td>
                 <a href="./Receita/deletarReceita.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> <!--Vai para o ./deletar.php passando o id de uma entrada GET-->

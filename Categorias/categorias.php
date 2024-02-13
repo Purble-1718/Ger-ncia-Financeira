@@ -1,0 +1,1 @@
+Fazer redirecionamento para as opções de categoria.

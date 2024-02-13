@@ -1,7 +1,7 @@
 <?php 
-require "./../config.php";
+require "./../../config.php";
 
-$sql = "SELECT * FROM Categoria";
+$sql = "SELECT * FROM CategoriaReceita";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -13,15 +13,15 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
-        <link rel="stylesheet" href="./../styles/styleCategoria.css">
+        <link rel="stylesheet" href="./../../styles/styleCategoria.css">
     </head>
 
     <body>
         <header>
             <nav>
                 <ul class="rem">
-                    <li><a href="./../receitas.php">Receitas</a></li>
-                    <li><a href="">Despesas</a></li>
+                    <li><a href="./../../receitas.php">Receitas</a></li>
+                    <li><a href="./../../Despesa/despesas.php">Despesas</a></li>
                     <li><a href="./categorias.php">Categorias</a></li> 
                 </ul>
             </nav>
@@ -48,9 +48,9 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($dados as $dado) :?>
+                        <?php foreach($dados as $contador => $dado) :?>
                             <tr>
-                                <td><?= $dado['id'] ?></td>
+                                <td><?= ++$contador ?></td>
                                 <td><?= $dado['descricao'] ?></td>
                                 <td>
                                 <a href="./deletarCategoria.php?id=<?= $dado['id'] ?>"><i class="fa-solid fa-trash"></i></a> 

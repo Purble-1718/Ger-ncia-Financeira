@@ -23,7 +23,6 @@ $sql->bindValue(":data_mvto", $data_mvto);
 $sql->bindValue(":descricao", $descricao);
 $sql->bindValue(":status_pago", $status);
 $sql->bindValue(":categorias_id", $categoria);
-
 $sql->execute();
 
 header("Location: ./../receitas.php");

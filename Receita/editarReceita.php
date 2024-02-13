@@ -13,18 +13,18 @@ $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = "SELECT * FROM Receita WHERE id = :id";
-$sql = $pdo->prepare($sql);
-$sql->bindValue(":id", $id);
-$sql->execute();
-$id_categoria = $sql->fetch(PDO::FETCH_ASSOC);
-$categorias = $id_categoria['categoria_id'];
+$categorias = $item['categoria_id'];
 
-$sql = "SELECT * FROM Categoria WHERE id = :categorias";
+$sql = "SELECT * FROM CategoriaReceita WHERE id = :categorias";
 $sql = $pdo->prepare($sql);
 $sql->bindValue(":categorias", $categorias);
 $sql->execute();
 $categoria = $sql->fetch(PDO::FETCH_ASSOC);
+
+$sql = "SELECT * FROM CategoriaReceita";
+$sql = $pdo->prepare($sql);
+$sql->execute();
+$infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -44,8 +44,8 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
     <nav>
       <ul class="rem">
         <li><a href="./../receitas.php">Receitas</a></li> <!--# tem que ser substituída por links de redirecionamento--> 
-        <li><a href="#">Despesas</a></li>
-        <li><a href="./../Categoria/categorias.php">Categorias</a></li>
+        <li><a href="./../Despesa/despesas.php">Despesas</a></li>
+        <li><a href="./../Categorias/categorias.php">Categorias</a></li>
       </ul>
     </nav>
   </header>
@@ -74,10 +74,9 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
           Categoria
           <select name="categoria" >
             <option value="<?= $item['categoria_id']?>"><?= $categoria['descricao']?></option> <!--Mostra valor do item que está sendo editado"-->
-            <option value="1">Salário</option>
-            <option value="2">Bônus</option>
-            <option value="3">Investimento</option>
-            <option value="4">Prêmio</option>
+            <?php foreach($infos as $info): ?>
+              <option value="<?= $info['id'] ?>"><?= $info['descricao'] ?></option>
+            <?php endforeach; ?>
           </select>
         </label>
 
@@ -119,22 +118,18 @@ $categoria = $sql->fetch(PDO::FETCH_ASSOC);
         </thead>
         <tbody>
 
-          <?php foreach ($dados as $dado) : ?> 
+          <?php foreach ($dados as $contador => $dado) : ?> 
             <tr> 
-              <td><?= $dado['id'] ?></td> 
+              <td><?= ++$contador ?></td> 
               <td><?= $dado['descricao'] ?></td>
               <td><?= $dado['valor'] ?></td>
               <td><?= $dado['data_mvto'] ?></td>
               <td>
-                <?php if($dado['categoria_id'] == 1):?>
-                  Salário
-                <?php elseif($dado['categoria_id'] == 2):?>
-                  Bônus
-                <?php elseif($dado['categoria_id'] == 3):?>
-                  Investimento
-                <?php elseif($dado['categoria_id'] == 4):?>
-                  Prêmio
-                <?php endif;?>
+                <?php foreach($infos as $info): ?>
+                  <?php if($dado['categoria_id'] == $info['id']): ?>
+                    <?= $info['descricao'] ?>
+                  <?php endif; ?>  
+                <?php endforeach; ?>
               </td>
               <td><?= $dado['status_pago']?></td>
               <td>
