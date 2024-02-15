@@ -1,7 +1,7 @@
 <?php 
 require "./../../config.php";
 
-$sql = "SELECT * FROM CategoriaReceita";
+$sql = "SELECT * FROM CategoriaDespesa";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);

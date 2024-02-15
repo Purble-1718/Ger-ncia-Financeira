@@ -1,7 +1,14 @@
-<?php 
+<?php #fazer
 require "./../../config.php";
 
-$sql = "SELECT * FROM CategoriaReceita";
+$id = $_GET['id'];
+$sql = "SELECT * FROM CategoriaDespesa WHERE id = :id";
+$sql = $pdo->prepare($sql);
+$sql->bindValue(":id", $id);
+$sql->execute();
+$item = $sql->fetch(PDO::FETCH_ASSOC);
+
+$sql = "SELECT * FROM CategoriaDespesa";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -29,12 +36,13 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         <main>
             <section class="formulário">
-                <form action="./cadastrarCategoria.php" method="get">
+                <form action="./confirmarEditarCategoria.php" method="get">
+                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
                     <label>
                         Categoria
-                        <input type="text" name="categoria">
+                        <input type="text" name="categoria" value="<?= $item['descricao']?>">
                     </label>
-                    <button type="submit">Adicionar</button>
+                    <button type="submit">Editar</button>
                 </form>
             </section>
 

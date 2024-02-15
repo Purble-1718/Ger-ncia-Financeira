@@ -29,7 +29,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="rem">
                     <li><a href="./../../receitas.php">Receitas</a></li>
                     <li><a href="./../../Despesa/despesas.php">Despesas</a></li>
-                    <li><a href="./categorias.php">Categorias</a></li> 
+                    <li><a href="./../categorias.php">Categorias</a></li> 
                 </ul>
             </nav>
         </header>
