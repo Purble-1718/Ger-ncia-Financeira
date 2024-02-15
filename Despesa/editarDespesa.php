@@ -27,6 +27,7 @@ $item = $sql->fetch(PDO::FETCH_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
         <link rel="stylesheet" href="./../styles/styleDespesa.css">
+        <script type="text/javascript" src="./../funcs.js"></script>
     </head>
 
     <body>
@@ -42,23 +43,23 @@ $item = $sql->fetch(PDO::FETCH_ASSOC);
         
         <main>
             <section class="formulario">
-                <form action="./confirmarEditarDespesa.php" method=get>
+                <form action="./confirmarEditarDespesa.php" method=get onsubmit="return validar()">
                     <input type="hidden" name="id" value="<?= $id ?>">
                     <label>
                         Descrição
-                        <input type="text" name="descricao" value="<?= $item['descricao'] ?>">
+                        <input type="text" name="descricao" id="descricao" value="<?= $item['descricao'] ?>">
                     </label>
                     <label>
                         Valor
-                        <input type="number" name="valor" value="<?= $item['valor'] ?>">
+                        <input type="number" name="valor" id="valor" value="<?= $item['valor'] ?>">
                     </label>
                     <label>
                         Data
-                        <input type="date" name="data_mvto" value="<?= $item['data_mvto'] ?>">
+                        <input type="date" name="data_mvto" id="data" value="<?= $item['data_mvto'] ?>">
                     </label>
                     <label>
                         Categoria
-                        <select name="categoria">
+                        <select name="categoria" id="categoria">
                             <option value="<?= $item['categoria_id'] ?>">
                                 <?php foreach($infos as $info): ?>
                                     <?php if($info['id'] == $item['categoria_id']): ?>

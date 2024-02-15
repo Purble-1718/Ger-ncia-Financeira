@@ -35,9 +35,10 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>GestãoFinanceira</title>
   <link rel="stylesheet" href="./../styles/styleReceita.css">  
+  <script type="text/javascript" src="./../funcs.js"></script>
+</head>
 
 <body>
   <header>
@@ -52,27 +53,27 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
   <main>
     <section class="formulario">
-      <form action="./confirmarEditarReceita.php" method="get"> 
+      <form action="./confirmarEditarReceita.php" method="get" onsubmit="return validar()"> 
 
         <input type="hidden" name="id" value="<?= $item['id'] ?>"> <!--Hidden para não aparecer para o usuário; enviando id pela url de forma escondida -->
         <label>
           Descrição
-          <input type="text" name="descricao" value="<?= $item['descricao']?>"> 
+          <input type="text" name="descricao" id="descricao" value="<?= $item['descricao']?>"> 
         </label>
 
         <label>
           Valor
-          <input type="number" name="valor" value="<?= $item['valor']?>"> 
+          <input type="number" name="valor" id="valor" value="<?= $item['valor']?>"> 
         </label>
 
         <label>
           Data
-          <input type="date" name="data_mvto" value="<?= $item['data_mvto']?>">
+          <input type="date" name="data_mvto" id="data" value="<?= $item['data_mvto']?>">
         </label>
         
         <label>
           Categoria
-          <select name="categoria" >
+          <select name="categoria" id="categoria">
             <option value="<?= $item['categoria_id']?>"><?= $categoria['descricao']?></option> <!--Mostra valor do item que está sendo editado"-->
             <?php foreach($infos as $info): ?>
               <option value="<?= $info['id'] ?>"><?= $info['descricao'] ?></option>
@@ -80,23 +81,18 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
           </select>
         </label>
 
-        <?php if($item['status_pago'] == "Pendente"):  ?>
           <label>
-            Status
+            Staus
             <select name="status">
-              <option value="Pendente">Pendente</option>
-              <option value="Recebida">Recebida</option>
+              <?php if($item['status_pago'] == "Pendente"): ?>
+                <option value="Pendente">Pendente</option>
+                <option value="Recebida">Recebida</option>
+              <?php else: ?> <!--if else de php para adequar à opção de status -->
+                <option value="Recebida">Recebida</option>
+                <option value="Pendente">Pendente</option>
+              <?php endif; ?>
             </select>
           </label>
-        <?php else: ?> <!--if else de php para adequar à opção de status -->
-          <label>
-            Status
-            <select name="status">
-              <option value="Recebida">Recebida</option>
-              <option value="Pendente">Pendente</option>
-            </select>
-          </label>
-        <?php endif; ?>
 
         <button type="submit">Editar</button> <!--Envia o formulário-->
 

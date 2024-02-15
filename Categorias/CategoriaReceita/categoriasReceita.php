@@ -14,6 +14,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
         <link rel="stylesheet" href="./../../styles/styleCategoria.css">
+        <script type="text/javascript" src="./../../funcs.js"></script>
     </head>
 
     <body>
@@ -29,10 +30,10 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         <main>
             <section class="formulário">
-                <form action="./cadastrarCategoria.php" method="get">
+                <form action="./cadastrarCategoria.php" method="get" onsubmit="return validar()">
                     <label>
                         Categoria
-                        <input type="text" name="categoria">
+                        <input type="text" name="categoria" id="categoria">
                     </label>
                     <button type="submit">Adicionar</button>
                 </form>

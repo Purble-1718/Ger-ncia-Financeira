@@ -22,6 +22,7 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
   <title>GestãoFinanceira</title>
   <link rel="stylesheet" href="./styles/styleReceita.css">  <!--Linka com css-->
+  <script type="text/javascript" src="./funcs.js"></script>
 </head>
 
 <body>
@@ -37,26 +38,26 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
   <main>
     <section class="formulario">
-      <form action="./Receita/cadastrarReceita.php" method="get"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
+      <form action="./Receita/cadastrarReceita.php" method="get" onsubmit="return validar()"> <!--Action fala para onde as informações do formulário devem ser enviadas; informações vão ser passadas pela url por conta do método get-->
 
         <label>
           Descrição
-          <input type="text" name="descricao"> <!--Label conecta tudo que está dentro-->
+          <input type="text" name="descricao" id="descricao"> <!--Label conecta tudo que está dentro-->
         </label>
 
         <label>
           Valor
-          <input type="number" name="valor"> <!--Input para receber dados que o usuário inserir-->
+          <input type="number" name="valor" id="valor"> <!--Input para receber dados que o usuário inserir-->
         </label>
 
         <label>
           Data
-          <input type="date" name="data_mvto"> <!--name associa o nome ao valor de entrada inserido pelo usuário, enviado pelo método do form -->
+          <input type="date" name="data_mvto" id="data"> <!--name associa o nome ao valor de entrada inserido pelo usuário, enviado pelo método do form -->
         </label>
         
         <label>
           Categoria
-          <select name="categoria"> 
+          <select name="categoria" id="categoria"> 
             <option value=""></option> <!--Para o select começar "vazio"-->
             <?php foreach($infos as $info): ?>
               <option value="<?= $info['id'] ?>"><?= $info['descricao'] ?></option>

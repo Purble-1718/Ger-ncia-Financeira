@@ -20,6 +20,7 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
         <link rel="stylesheet" href="./../styles/styleDespesa.css">
+        <script type="text/javascript" src="./../funcs.js"></script>
     </head>
 
     <body>
@@ -35,22 +36,22 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
         
         <main>
             <section class="formulario">
-                <form action="./cadastrarDespesa.php" method=get>
+                <form action="./cadastrarDespesa.php" method=get onsubmit="return validar()">
                     <label>
                         Descrição
-                        <input type="text" name="descricao">
+                        <input type="text" name="descricao" id="descricao">
                     </label>
                     <label>
                         Valor
-                        <input type="number" name="valor">
+                        <input type="number" name="valor" id="valor">
                     </label>
                     <label>
                         Data
-                        <input type="date" name="data_mvto">
+                        <input type="date" name="data_mvto" id="data">
                     </label>
                     <label>
                         Categoria
-                        <select name="categoria">
+                        <select name="categoria" id="categoria">
                             <option value=""></option>
                             <?php foreach($infos as $info): ?>
                                 <option value="<?= $info['id'] ?>"><?= $info['descricao'] ?></option>

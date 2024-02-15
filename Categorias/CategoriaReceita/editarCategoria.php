@@ -21,6 +21,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
         <link rel="stylesheet" href="./../../styles/styleCategoria.css">
+        <script type="text/javascript" src="./../../funcs.js"></script>
     </head>
 
     <body>
@@ -36,11 +37,11 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         <main>
             <section class="formulário">
-                <form action="./confirmarEditarCategoria.php" method="get">
+                <form action="./confirmarEditarCategoria.php" method="get" onsubmit="return validar()">
                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
                     <label>
                         Categoria
-                        <input type="text" name="categoria" value="<?= $item['descricao']?>">
+                        <input type="text" name="categoria" id="categoria" value="<?= $item['descricao']?>">
                     </label>
                     <button type="submit">Editar</button>
                 </form>
