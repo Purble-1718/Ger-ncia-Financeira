@@ -22,7 +22,7 @@ $infos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
   <title>GestãoFinanceira</title>
   <link rel="stylesheet" href="./styles/styleReceita.css">  <!--Linka com css-->
-  <script type="text/javascript" src="./funcs.js"></script>
+  <script type="text/javascript" src="./JavaScript/funcs.js"></script>
 </head>
 
 <body>

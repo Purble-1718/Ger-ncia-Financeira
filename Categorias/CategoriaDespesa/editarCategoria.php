@@ -21,7 +21,7 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GestãoFinanceira</title>
         <link rel="stylesheet" href="./../../styles/styleCategoria.css">
-        <script type="text/javascript" src="./../../funcs.js"></script>
+        <script type="text/javascript" src="./../../JavaScript/funcs.js"></script>
     </head>
 
     <body>

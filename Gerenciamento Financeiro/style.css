@@ -1,0 +1,124 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+.bg{
+    height: 100vh;
+    background-color: #170F2B;
+    color: white;
+    font-family: "Roboto", sans-serif;
+}
+
+.footer{
+    height: 30vh;
+    background-color: #6B3ACC;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.button{
+    height: 200px;
+    width: 200px;
+    margin: 1%;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #6B3ACC;
+}
+
+.valor{
+    font-family: "3900-minutes";
+    font-size: 55px;
+}
+
+#entrada{
+    color: #45FF45;
+}
+
+#saida{
+    color: #FF0000;
+}
+
+.container{
+    display: block;
+    justify-content: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.painel{
+    height: 55vh;
+    margin: 1% 20%;
+    border-radius: 15px;
+    padding: 30px 25px;
+    background-color: #6B3ACC;
+}
+
+.add-itens {
+    display: flex;
+    border-radius: 25px;
+    background-color: #7D58DB;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+}
+
+.add-itens input{
+    background-color: #2D1659;
+    border: none;
+    height: 35px;
+    border-radius: 40px;
+    margin-top: 5px;
+    color: white;
+}
+
+.radio {
+    flex-direction: row;
+}
+
+.search-bar{
+    height: 55px;
+    margin: 0% 20%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #6B3ACC;
+}
+
+.search-bar input{
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid white;
+    width: 93%;
+    font-family: "Roboto", sans-serif;;
+    font-size: 20px;
+    color: #fff;
+}
+
+#glass{
+    font-size: 25px;
+    margin: 12px;
+}
+
+.input-search:focus {
+    outline: none;
+}
+
+.input-search::placeholder {
+    color: rgba(255, 255, 255, 0.363);
+    font-family: "Roboto", sans-serif;
+}
+
+
+@font-face {
+    font-family: "3900-minutes";
+    src: url("./Fontes/3900-minutes.ttf") format("truetype");
+}
